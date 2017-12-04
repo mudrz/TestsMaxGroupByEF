@@ -22,7 +22,10 @@ namespace MaxTest
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            });
             services.AddDbContext<LiteContext>(options => options.UseSqlite("Data Source=LiteContext.db"));
             // services.AddDbContext<PostgreContext>(
             //     options => options.UseNpgsql(Configuration.GetConnectionString("PostgreConnection"))
